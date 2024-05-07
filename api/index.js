@@ -6,7 +6,6 @@ import authRoutes from "./routes/authRoutes.js";
 import postRoutes from "./routes/postRoute.js";
 import commentRoutes from "./routes/commentRoutes.js";
 import path from "path";
-import cors from "cors";
 
 import cookieParser from "cookie-parser";
 
@@ -26,7 +25,6 @@ mongoose
 app.listen(3000, () => {
   console.log("server running on port 3000");
 });
-app.use(cors());
 
 app.use("/api/user", router);
 app.use("/api/auth", authRoutes);
