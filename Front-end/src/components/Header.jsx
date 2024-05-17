@@ -82,6 +82,7 @@ export default function Header() {
       <div className="flex gap-5 fw-bold">
         <Link to="/">Home</Link>
         <Link to="/about">About</Link>
+        <Link to="/create-post">Create Post</Link>
       </div>
 
       <div>
