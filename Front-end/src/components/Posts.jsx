@@ -144,7 +144,12 @@ export default function DashPosts() {
           )}
         </>
       ) : (
-        <p>You have no posts yet!</p>
+        <p>
+          You have no posts yet!{" "}
+          <Link style={{ color: "red" }} to="/create-post">
+            Create One
+          </Link>
+        </p>
       )}
       <Modal
         show={showModal}

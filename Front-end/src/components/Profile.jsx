@@ -154,7 +154,7 @@ export default function Profile() {
     <div
       className="vh-100"
       style={{
-        background: "linear-gradient(45deg, #C9B0FD, #EA6B50)",
+        background: " #FAF0DC",
         color: "#FFFFFF",
         display: "flex",
         flexDirection: "column",
@@ -167,6 +167,7 @@ export default function Profile() {
         style={{
           fontSize: "30px",
           textAlign: "center",
+          color: "black",
         }}
       >
         Profile
@@ -265,6 +266,7 @@ export default function Profile() {
                 height: "30px",
                 padding: "10px 20px",
                 width: "100%",
+                borderRadius: "10px",
               }}
             />
           </div>
@@ -281,6 +283,7 @@ export default function Profile() {
                 height: "30px",
                 padding: "10px 20px",
                 width: "100%",
+                borderRadius: "10px",
               }}
             />
           </div>
@@ -296,6 +299,7 @@ export default function Profile() {
                 height: "30px",
                 padding: "10px 20px",
                 width: "100%",
+                borderRadius: "10px",
               }}
             />
           </div>

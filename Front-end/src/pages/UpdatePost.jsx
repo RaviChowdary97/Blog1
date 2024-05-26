@@ -114,7 +114,7 @@ export default function UpdatePost() {
 
   return (
     <>
-      <div style={{ background: "linear-gradient(45deg, #C9B0FD, #EA6B50)" }}>
+      <div style={{ background: "#FAF0DC" }}>
         <div className="p-3 max-w-3xl mx-auto min-h-screen">
           <h1 className="text-center text-3xl my-7 font-semibold">
             Update a Post
@@ -203,12 +203,7 @@ export default function UpdatePost() {
               }}
               value={formData.content}
             />
-            <Button
-              type="submit"
-              style={{ background: "linear-gradient(45deg, #F2672D, red)" }}
-            >
-              Update Post
-            </Button>
+            <Button type="submit">Update Post</Button>
             {publishError && (
               <Alert
                 className="mt-1"

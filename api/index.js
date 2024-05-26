@@ -6,7 +6,6 @@ import authRoutes from "./routes/authRoutes.js";
 import postRoutes from "./routes/postRoute.js";
 import commentRoutes from "./routes/commentRoutes.js";
 import path from "path";
-
 import cookieParser from "cookie-parser";
 
 dotenv.config();

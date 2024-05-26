@@ -48,80 +48,83 @@ export default function Header() {
   };
 
   return (
-    <Navbar className="border-b-2 py-2">
-      <Link
-        to="/"
-        className="self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white"
-        style={{ color: "#C9B0FD" }}
-      >
-        <span
-          className="px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white"
-          style={{
-            backgroundImage: "linear-gradient(45deg, #C9B0FD, #EA6B50)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-          }}
+    <div style={{ backgroundColor: " #F1DDB7" }}>
+      <Navbar className="border-b-2 py-2 bg- F1DDB7">
+        <Link
+          to="/"
+          className="self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white"
+          style={{ color: "#C9B0FD" }}
         >
-          RealStorie's
-        </span>
-        Blog
-      </Link>
-      <form onSubmit={handleSubmit}>
-        <TextInput
-          type="text"
-          placeholder="Search..."
-          rightIcon={AiOutlineSearch}
-          className="hidden lg:inline"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </form>
-      <Button className="w-12 h-10 lg:hidden" color="gray" pill>
-        <AiOutlineSearch />
-      </Button>
-      <div className="flex gap-5 fw-bold">
-        <Link to="/">Home</Link>
-        <Link to="/about">About</Link>
-      </div>
-
-      <div>
-        {currentUser ? (
-          <Dropdown
-            arrowIcon={false}
-            inline
-            label={
-              <Avatar alt="user" img={currentUser.profilePicture} rounded />
-            }
+          <span
+            className="px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white"
+            style={{
+              backgroundImage: "linear-gradient(45deg, #C9B0FD, #EA6B50)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+            }}
           >
-            <Dropdown.Header>
-              <span className="block text-sm">@{currentUser.username}</span>
-              <span className="block text-sm font-medium truncate">
-                {currentUser.email}
-              </span>
-            </Dropdown.Header>
-            <Link to="/dashboard?tab=profile">
-              <Dropdown.Item>Profile</Dropdown.Item>
-            </Link>
-            <Dropdown.Divider />
-            <Dropdown.Item onClick={handleSignout}>Sign out</Dropdown.Item>
-          </Dropdown>
-        ) : (
-          <Link to="/sign-in">
-            <button
-              style={{
-                background: "linear-gradient(to right, purple, blue)",
-                border: "none",
-                color: "white",
-                padding: "8px 20px",
-                borderRadius: "10px",
-                textDecoration: "none",
-              }}
+            RealStorie's
+          </span>
+          Blog
+        </Link>
+        <form onSubmit={handleSubmit}>
+          <TextInput
+            type="text"
+            placeholder="Search..."
+            rightIcon={AiOutlineSearch}
+            className="hidden lg:inline"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </form>
+        <Button className="w-12 h-10 lg:hidden" color="gray" pill>
+          <AiOutlineSearch />
+        </Button>
+        <div className="flex gap-5 fw-bold">
+          <Link to="/">Home</Link>
+          <Link to="/about">About</Link>
+          <Link to="/create-post">Create Post</Link>
+        </div>
+
+        <div>
+          {currentUser ? (
+            <Dropdown
+              arrowIcon={false}
+              inline
+              label={
+                <Avatar alt="user" img={currentUser.profilePicture} rounded />
+              }
             >
-              Sign In
-            </button>
-          </Link>
-        )}
-      </div>
-    </Navbar>
+              <Dropdown.Header>
+                <span className="block text-sm">@{currentUser.username}</span>
+                <span className="block text-sm font-medium truncate">
+                  {currentUser.email}
+                </span>
+              </Dropdown.Header>
+              <Link to="/dashboard?tab=profile">
+                <Dropdown.Item>Profile</Dropdown.Item>
+              </Link>
+              <Dropdown.Divider />
+              <Dropdown.Item onClick={handleSignout}>Sign out</Dropdown.Item>
+            </Dropdown>
+          ) : (
+            <Link to="/sign-in">
+              <button
+                style={{
+                  background: "linear-gradient(to right, purple, blue)",
+                  border: "none",
+                  color: "white",
+                  padding: "8px 20px",
+                  borderRadius: "10px",
+                  textDecoration: "none",
+                }}
+              >
+                Sign In
+              </button>
+            </Link>
+          )}
+        </div>
+      </Navbar>
+    </div>
   );
 }

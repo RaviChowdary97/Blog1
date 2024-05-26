@@ -33,7 +33,7 @@ export default function SignUp() {
     <div
       className="d-flex justify-content-center align-items-center vh-100"
       style={{
-        background: "linear-gradient(45deg, #C9B0FD, #EA6B50)",
+        background: "#F4DE9C ",
         color: "#FFFFFF",
       }}
     >
@@ -68,6 +68,11 @@ export default function SignUp() {
                   name="username"
                   className="form-control"
                   placeholder="Username"
+                  style={{
+                    borderRadius: "10px",
+                    border: "1px solid #ccc",
+                    padding: "8px 12px",
+                  }}
                 />
                 <ErrorMessage
                   name="username"
@@ -83,6 +88,11 @@ export default function SignUp() {
                   name="email"
                   className="form-control"
                   placeholder="Email"
+                  style={{
+                    borderRadius: "10px",
+                    border: "1px solid #ccc",
+                    padding: "8px 12px",
+                  }}
                 />
                 <ErrorMessage
                   name="email"
@@ -98,6 +108,11 @@ export default function SignUp() {
                   name="password"
                   className="form-control"
                   placeholder="Password"
+                  style={{
+                    borderRadius: "10px",
+                    border: "1px solid #ccc",
+                    padding: "8px 12px",
+                  }}
                 />
                 <ErrorMessage
                   name="password"
@@ -121,7 +136,7 @@ export default function SignUp() {
                       backgroundColor: "#007BFF",
                       borderRadius: "10px",
                       width: "100%",
-                      background: "linear-gradient(45deg, crimson, yellow)",
+
                       color: "#FFFFFF",
                     }}
                     disabled={isSubmitting}

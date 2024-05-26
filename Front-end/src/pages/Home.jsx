@@ -13,7 +13,7 @@ export default function Home() {
     fetchPosts();
   }, []);
   return (
-    <div>
+    <div style={{ backgroundColor: "#FAF0DC" }}>
       <div className="flex flex-col gap-6 p-28 px-3 max-w-6xl mx-auto">
         <h1 className="text-3xl font-bold">Welcome to the Blog</h1>
         <p className="text-gray-500 text-xs sm:text-sm">

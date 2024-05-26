@@ -86,7 +86,7 @@ export default function CreatePost() {
 
   return (
     <>
-      <div style={{ background: "linear-gradient(45deg, #C9B0FD, #EA6B50)" }}>
+      <div style={{ background: "#FAF0DC" }}>
         <div className="p-3 max-w-3xl mx-auto min-h-screen">
           <h1 className="text-center text-3xl my-7 font-semibold">
             Create a Post
@@ -172,12 +172,7 @@ export default function CreatePost() {
                 setFormData({ ...formData, content: value });
               }}
             />
-            <Button
-              type="submit"
-              style={{ background: "linear-gradient(45deg, #F2672D, red)" }}
-            >
-              Publish
-            </Button>
+            <Button type="submit">Publish</Button>
             {publishError && (
               <Alert
                 className="mt-1"
