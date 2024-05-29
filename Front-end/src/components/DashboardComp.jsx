@@ -8,6 +8,8 @@ import {
 } from "react-icons/hi";
 import { Button, Table } from "flowbite-react";
 import { Link } from "react-router-dom";
+import Loading from "./Loading";
+import Error from "./Error";
 
 export default function DashboardComp() {
   const [users, setUsers] = useState([]);
@@ -20,6 +22,9 @@ export default function DashboardComp() {
   const [lastMonthPosts, setLastMonthPosts] = useState(0);
   const [lastMonthComments, setLastMonthComments] = useState(0);
   const { currentUser } = useSelector((state) => state.user);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -31,7 +36,7 @@ export default function DashboardComp() {
           setLastMonthUsers(data.lastMonthUsers);
         }
       } catch (error) {
-        console.log(error.message);
+        setError(error.message);
       }
     };
     const fetchPosts = async () => {
@@ -44,7 +49,7 @@ export default function DashboardComp() {
           setLastMonthPosts(data.lastMonthPosts);
         }
       } catch (error) {
-        console.log(error.message);
+        setError(error.message);
       }
     };
     const fetchComments = async () => {
@@ -57,26 +62,38 @@ export default function DashboardComp() {
           setLastMonthComments(data.lastMonthComments);
         }
       } catch (error) {
-        console.log(error.message);
+        setError(error.message);
       }
     };
 
-    fetchUsers();
-    fetchPosts();
-    fetchComments();
+    Promise.all([fetchUsers(), fetchPosts(), fetchComments()])
+      .then(() => setLoading(false))
+      .catch((error) => {
+        setError(error.message);
+        setLoading(false);
+      });
   }, [currentUser]);
+
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (error) {
+    return <Error message={error} />;
+  }
+
   return (
-    <div className="p-3 md:mx-auto">
+    <div className="p-3 md:mx-auto bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 min-h-screen">
       <div className="flex-wrap flex gap-4 justify-center">
-        <div className="flex flex-col p-3 dark:bg-slate-800 gap-4 md:w-72 w-full rounded-md shadow-md">
+        <div className="flex flex-col p-3 dark:bg-slate-800 bg-white gap-4 md:w-72 w-full rounded-md shadow-md">
           <div className="flex justify-between">
             <div className="">
               <h3 className="text-gray-500 text-md uppercase">Total Users</h3>
               <p className="text-2xl">{totalUsers}</p>
             </div>
-            <HiOutlineUserGroup className="bg-teal-600  text-white rounded-full text-5xl p-3 shadow-lg" />
+            <HiOutlineUserGroup className="bg-teal-600 text-white rounded-full text-5xl p-3 shadow-lg" />
           </div>
-          <div className="flex  gap-2 text-sm">
+          <div className="flex gap-2 text-sm">
             <span className="text-green-500 flex items-center">
               <HiArrowNarrowUp />
               {lastMonthUsers}
@@ -84,7 +101,7 @@ export default function DashboardComp() {
             <div className="text-gray-500">Last month</div>
           </div>
         </div>
-        <div className="flex flex-col p-3 dark:bg-slate-800 gap-4 md:w-72 w-full rounded-md shadow-md">
+        <div className="flex flex-col p-3 dark:bg-slate-800 bg-white gap-4 md:w-72 w-full rounded-md shadow-md">
           <div className="flex justify-between">
             <div className="">
               <h3 className="text-gray-500 text-md uppercase">
@@ -92,9 +109,9 @@ export default function DashboardComp() {
               </h3>
               <p className="text-2xl">{totalComments}</p>
             </div>
-            <HiAnnotation className="bg-indigo-600  text-white rounded-full text-5xl p-3 shadow-lg" />
+            <HiAnnotation className="bg-indigo-600 text-white rounded-full text-5xl p-3 shadow-lg" />
           </div>
-          <div className="flex  gap-2 text-sm">
+          <div className="flex gap-2 text-sm">
             <span className="text-green-500 flex items-center">
               <HiArrowNarrowUp />
               {lastMonthComments}
@@ -102,15 +119,15 @@ export default function DashboardComp() {
             <div className="text-gray-500">Last month</div>
           </div>
         </div>
-        <div className="flex flex-col p-3 dark:bg-slate-800 gap-4 md:w-72 w-full rounded-md shadow-md">
+        <div className="flex flex-col p-3 dark:bg-slate-800 bg-white gap-4 md:w-72 w-full rounded-md shadow-md">
           <div className="flex justify-between">
             <div className="">
               <h3 className="text-gray-500 text-md uppercase">Total Posts</h3>
               <p className="text-2xl">{totalPosts}</p>
             </div>
-            <HiDocumentText className="bg-lime-600  text-white rounded-full text-5xl p-3 shadow-lg" />
+            <HiDocumentText className="bg-lime-600 text-white rounded-full text-5xl p-3 shadow-lg" />
           </div>
-          <div className="flex  gap-2 text-sm">
+          <div className="flex gap-2 text-sm">
             <span className="text-green-500 flex items-center">
               <HiArrowNarrowUp />
               {lastMonthPosts}
@@ -120,8 +137,8 @@ export default function DashboardComp() {
         </div>
       </div>
       <div className="flex flex-wrap gap-4 py-3 mx-auto justify-center">
-        <div className="flex flex-col w-full md:w-auto shadow-md p-2 rounded-md dark:bg-gray-800">
-          <div className="flex justify-between  p-3 text-sm font-semibold">
+        <div className="flex flex-col w-full md:w-auto shadow-md p-2 rounded-md dark:bg-gray-800 bg-white">
+          <div className="flex justify-between p-3 text-sm font-semibold">
             <h1 className="text-center p-2">Recent users</h1>
           </div>
           <Table hoverable>
@@ -146,8 +163,8 @@ export default function DashboardComp() {
               ))}
           </Table>
         </div>
-        <div className="flex flex-col w-full md:w-auto shadow-md p-2 rounded-md dark:bg-gray-800">
-          <div className="flex justify-between  p-3 text-sm font-semibold">
+        <div className="flex flex-col w-full md:w-auto shadow-md p-2 rounded-md dark:bg-gray-800 bg-white">
+          <div className="flex justify-between p-3 text-sm font-semibold">
             <h1 className="text-center p-2">Recent comments</h1>
             <Button outline gradientDuoTone="purpleToPink">
               <Link to={"/dashboard?tab=comments"}>See all</Link>
@@ -171,8 +188,8 @@ export default function DashboardComp() {
               ))}
           </Table>
         </div>
-        <div className="flex flex-col w-full md:w-auto shadow-md p-2 rounded-md dark:bg-gray-800">
-          <div className="flex justify-between  p-3 text-sm font-semibold">
+        <div className="flex flex-col w-full md:w-auto shadow-md p-2 rounded-md dark:bg-gray-800 bg-white">
+          <div className="flex justify-between p-3 text-sm font-semibold">
             <h1 className="text-center p-2">Recent posts</h1>
             <Button outline gradientDuoTone="purpleToPink">
               <Link to={"/dashboard?tab=posts"}>See all</Link>

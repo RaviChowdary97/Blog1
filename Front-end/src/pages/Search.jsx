@@ -2,6 +2,8 @@ import { Button, Select, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import PostCard from "../components/PostCard";
+import Loading from "./Loading";
+import Error from "./Error";
 
 export default function Search() {
   const [sidebarData, setSidebarData] = useState({
@@ -13,6 +15,7 @@ export default function Search() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showMore, setShowMore] = useState(false);
+  const [error, setError] = useState(null);
 
   const location = useLocation();
 
@@ -38,6 +41,7 @@ export default function Search() {
       const res = await fetch(`/api/post/getposts?${searchQuery}`);
       if (!res.ok) {
         setLoading(false);
+        setError("Failed to fetch posts");
         return;
       }
       if (res.ok) {
@@ -86,6 +90,7 @@ export default function Search() {
     const searchQuery = urlParams.toString();
     const res = await fetch(`/api/post/getposts?${searchQuery}`);
     if (!res.ok) {
+      setError("Failed to fetch more posts");
       return;
     }
     if (res.ok) {
@@ -151,10 +156,13 @@ export default function Search() {
           Posts results:
         </h1>
         <div className="p-7 flex flex-wrap gap-4">
-          {!loading && posts.length === 0 && (
+          <div className="flex justify-center items-center w-full">
+            {loading && <Loading />}
+            {error && <Error message={error} />}
+          </div>
+          {!loading && posts.length === 0 && !error && (
             <p className="text-xl text-gray-500">No posts found.</p>
           )}
-          {loading && <p className="text-xl text-gray-500">Loading...</p>}
           {!loading &&
             posts &&
             posts.map((post) => <PostCard key={post._id} post={post} />)}

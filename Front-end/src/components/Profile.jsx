@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {
   getDownloadURL,
   getStorage,
@@ -22,7 +22,6 @@ import {
   deleteUserSuccess,
   signoutSuccess,
 } from "../redux/user/userSlice";
-import { useDispatch } from "react-redux";
 
 export default function Profile() {
   const { currentUser, error, loading } = useSelector((state) => state.user);
@@ -37,6 +36,7 @@ export default function Profile() {
   const [updateUserSuccess, setUpdateUserSucess] = useState(null);
   const [updateUserError, setUpdateUserError] = useState(null);
   const [showModal, setShowModal] = useState(false);
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -44,6 +44,7 @@ export default function Profile() {
       setImageFileUrl(URL.createObjectURL(file));
     }
   };
+
   useEffect(() => {
     if (imageFile) {
       uploadImage();
@@ -118,6 +119,7 @@ export default function Profile() {
       dispatch(updateFailure(error.message));
     }
   };
+
   const handleDeleteUser = async () => {
     setShowModal(false);
     try {
@@ -135,6 +137,7 @@ export default function Profile() {
       dispatch(deleteUserFailure(error.message));
     }
   };
+
   const handleSignout = async () => {
     try {
       const res = await fetch("api/user/signout", {
@@ -150,12 +153,13 @@ export default function Profile() {
       console.log(error);
     }
   };
+
   return (
     <div
       className="vh-100"
       style={{
-        background: " #FAF0DC",
-        color: "#FFFFFF",
+        background: "linear-gradient(45deg, #FAF0DC, #ADD8E6, #A4F0DD)",
+        color: "#000000",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -167,7 +171,6 @@ export default function Profile() {
         style={{
           fontSize: "30px",
           textAlign: "center",
-          color: "black",
         }}
       >
         Profile
@@ -222,7 +225,7 @@ export default function Profile() {
             width: "100%",
             height: "100%",
             borderRadius: "50%",
-            border: "4px solid #A4F0DD ",
+            border: "4px solid #A4F0DD",
             outline: "2px solid ",
             cursor: "pointer",
           }}
@@ -316,30 +319,29 @@ export default function Profile() {
               disabled={loading || imageFileUploading}
               style={{
                 fontSize: "1.2rem",
-
                 backgroundColor: "#007BFF",
                 borderRadius: "10px",
                 width: "350px",
-                background: "linear-gradient(45deg, #9289F0 , #2F799A )",
+                background: "linear-gradient(45deg, #9289F0, #2F799A)",
                 color: "#FFFFFF",
               }}
             >
-              {loading ? "loading" : "Update"}
+              {loading ? "Loading..." : "Update"}
             </button>
             <button
-              type="submit"
               className="btn"
               style={{
                 fontSize: "1.2rem",
-
                 backgroundColor: "#007BFF",
                 borderRadius: "10px",
                 width: "350px",
-                background: "linear-gradient(45deg, #07B139 , #B05CC8)",
+                background: "linear-gradient(45deg, #07B139, #B05CC8)",
                 color: "#FFFFFF",
               }}
             >
-              <Link to="/create-post">Create Post</Link>
+              <Link to="/create-post" style={{ color: "#FFFFFF" }}>
+                Create Post
+              </Link>
             </button>
           </div>
 
@@ -375,7 +377,7 @@ export default function Profile() {
                 color: "white",
                 marginBottom: "7px",
                 padding: "1px",
-                background: "linear-gradient(45deg, #9289F0 , #2F799A )",
+                background: "linear-gradient(45deg, #9289F0, #2F799A)",
               }}
               showIcon={false}
             >
@@ -387,7 +389,7 @@ export default function Profile() {
               style={{
                 marginBottom: "7px",
                 padding: "1px",
-                background: "linear-gradient(45deg, purple , gold)",
+                background: "linear-gradient(45deg, purple, gold)",
                 color: "#FFFFFF",
               }}
               showIcon={false}
@@ -400,7 +402,7 @@ export default function Profile() {
               style={{
                 marginBottom: "7px",
                 padding: "1px",
-                background: "linear-gradient(45deg, purple , gold)",
+                background: "linear-gradient(45deg, purple, gold)",
                 color: "#FFFFFF",
               }}
               showIcon={false}
@@ -416,16 +418,15 @@ export default function Profile() {
         popup
         size="md"
         style={{
-          margin: " auto",
+          margin: "auto",
           width: "495px",
         }}
       >
         <Modal.Header />
         <Modal.Body>
-          <div className="text-center  " style={{ height: "150px" }}>
+          <div className="text-center" style={{ height: "150px" }}>
             <HiOutlineExclamationCircle
-              className="h-14 w-14 text-gray-400 dark:text-gray-200
-              mt-2"
+              className="h-14 w-14 text-gray-400 dark:text-gray-200 mt-2"
               style={{ marginLeft: "160px" }}
             />
             <h3 style={{ width: "400px" }}>
@@ -433,7 +434,7 @@ export default function Profile() {
             </h3>
             <div className="flex justify-center gap-4">
               <Button
-                className="bg-red-500 hover:bg-red-600 text-white font-bold  rounded"
+                className="bg-red-500 hover:bg-red-600 text-white font-bold rounded"
                 style={{ marginTop: "20px" }}
                 onClick={handleDeleteUser}
               >
@@ -441,7 +442,7 @@ export default function Profile() {
               </Button>
               <Button
                 style={{ marginTop: "20px" }}
-                className="bg-green-500 hover:bg-green-600 text-white font-bold  rounded"
+                className="bg-green-500 hover:bg-green-600 text-white font-bold rounded"
                 onClick={() => setShowModal(false)}
               >
                 No, Cancel
